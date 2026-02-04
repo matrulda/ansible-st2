@@ -4,9 +4,13 @@
 # KitchenCI
 .kitchen/
 .kitchen.local.yml
+build/kitchen/.bundle/
 
 # Ansible Retry
 *.retry
+
+# Ansible local files
+.ansible/
 
 # Vagrant
 .vagrant/
@@ -16,3 +20,4 @@
 
 # Virtual Environment
 .venv
+.venv-molecule/
