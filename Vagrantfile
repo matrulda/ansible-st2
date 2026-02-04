@@ -6,6 +6,10 @@ VIRTUAL_MACHINES = {
     :hostname => 'ansible-st2-ubuntu20',
     :box => 'ubuntu/focal64',
   },
+  :ubuntu22 => {
+    :hostname => 'ansible-st2-ubuntu22',
+    :box => 'ubuntu/jammy64',
+  },
   :centos7 => {
     :hostname => 'ansible-st2-centos7',
     :box => 'centos/7',

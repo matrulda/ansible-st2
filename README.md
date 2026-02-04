@@ -11,6 +11,7 @@
 ## Supported platforms
 
 * Ubuntu Focal (20.04)
+* Ubuntu Jammy (22.04)
 * RHEL 7 and CentOS 7
 * RHEL 8 and Rocky Linux 8
 
@@ -110,6 +111,7 @@ There are a few requirements when developing on `ansible-st2`.
 These are the platforms we must support (must pass end-to-end testing):
 
 * Ubuntu Focal (20.04)
+* Ubuntu Jammy (22.04)
 * CentOS 7
 * Rocky Linux 8
 * RHEL 7 (via AWS)
@@ -129,6 +131,7 @@ Other supported distributions:
 
 ```sh
 vagrant up ubuntu20
+vagrant up ubuntu22
 vagrant up centos7
 vagrant up rockylinux8
 ```
