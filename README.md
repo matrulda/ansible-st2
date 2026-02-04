@@ -120,8 +120,28 @@ These are the platforms we must support (must pass end-to-end testing):
 The playbooks and roles must support Ansible idempotence.
 That is, re-running the `stackstorm.yml` playbook must end with the result `changed=0.*failed=0` (provided that versions and revisions are pinned).
 
+### Molecule (E2E) tests
+
+To run the same E2E tests as CI locally (Python 3.11+, ansible-core 2.18.12, molecule 3.6.1):
+
+```sh
+make molecule-env    # one-time: create .venv-ci and install deps
+make molecule-test   # run full test (default: ubuntu22)
+```
+
+Override the scenario: `make molecule-test SCENARIO=ubuntu20`. The project uses [asdf](https://asdf-vm.com/) `.tool-versions` for Python 3.11; if you use asdf, run `asdf install` in the repo first.
+
+**Internal CA (e.g. Artifactory):** If pip or Ansible must trust an internal CA, pass your PEM file so the Makefile builds a combined bundle (system + your CA) and uses it for SSL:
+
+```sh
+make molecule-env EXTRA_CA_BUNDLE=~/SammyCA.pem
+make molecule-test EXTRA_CA_BUNDLE=~/SammyCA.pem
+```
+
+You only need `EXTRA_CA_BUNDLE` on the same invocations where SSL is used (env creation and any molecule run that talks to internal hosts).
+
 For local development, there is a [Vagrantfile](Vagrantfile) available.
-By default, the following command will set up an ubuntu20 box (`ubuntu/focal64`):
+By default, the following command will set up an ubuntu22 box (`ubuntu/jammy64`):
 
 ```sh
 vagrant up
@@ -131,7 +151,6 @@ Other supported distributions:
 
 ```sh
 vagrant up ubuntu20
-vagrant up ubuntu22
 vagrant up centos7
 vagrant up rockylinux8
 ```
@@ -144,8 +163,8 @@ You may be interested in other methods to deploy StackStorm:
   * [Puppet Module](https://github.com/stackstorm/puppet-st2)
 
 * Manual Instructions
-  * [Ubuntu Bionic (18.04)](https://docs.stackstorm.com/install/u18.html)
   * [Ubuntu Focal (20.04)](https://docs.stackstorm.com/install/u20.html)
+  * [Ubuntu Jammy (22.04)](https://docs.stackstorm.com/install/u22.html)
   * [RHEL 8 / Rocky Linux 8](https://docs.stackstorm.com/install/rhel8.html)
   * [RHEL 7 / CentOS 7](https://docs.stackstorm.com/install/rhel7.html)
 

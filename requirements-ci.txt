@@ -1,0 +1,7 @@
+# Match .github/workflows/e2e.yaml (ansible-core 2.18.12, Python 3.11+)
+# ansible-compat 3+ renamed runtime.exec -> run; molecule 3.6.1 needs .exec
+requests<=2.29.0
+ansible-compat>=2.2.0,<3
+ansible-core==2.18.12
+molecule==3.6.1
+molecule-docker==1.1.0

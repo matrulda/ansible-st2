@@ -43,7 +43,7 @@ concurrency:
 
 jobs:
   molecule:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       max-parallel: 2
       fail-fast: false
@@ -54,13 +54,15 @@ jobs:
         os:
           - rockylinux8
           - ubuntu20
+          - ubuntu22
+        # Single ansible-core version for all tests; use one supported on Jammy (focal/jammy/noble generations)
         ansible-core:
-          - "2.11.12"
+          - "2.18.12"
         # Only run centos7 for stable, as not valid for new release
         include:
           - st2_repo: stable
             os: centos7
-            ansible-core: 2.11.12
+            ansible-core: "2.18.12"
 
     steps:
       - name: Checkout the repository
@@ -70,6 +72,7 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install --upgrade "requests<=2.29.0"
+          python3 -m pip install --upgrade "ansible-compat>=2.2.0,<3"
           python3 -m pip install --upgrade ansible-core==${{ matrix.ansible-core }}
           python3 -m pip install --upgrade molecule==${{ env.MOLECULE_VERSION }}
           python3 -m pip install --upgrade molecule-docker==${{ env.MOLECULE_DOCKER_VERSION }}
@@ -86,7 +89,7 @@ jobs:
     name: Slack notification for failed master builds
     if: always()
     needs: [molecule]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Workflow conclusion
         # this step creates an environment variable WORKFLOW_CONCLUSION and is the most reliable way to check the status of previous jobs

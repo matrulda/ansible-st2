@@ -1,3 +1,6 @@
+# CI-matching molecule venv (Python 3.11+, ansible-core 2.18)
+.venv-ci/
+
 # KitchenCI
 .kitchen/
 .kitchen.local.yml

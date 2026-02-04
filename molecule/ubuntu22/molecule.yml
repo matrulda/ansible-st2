@@ -1,0 +1,62 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: ubuntu-22.04
+    groups: [test]
+    pre_build_image: false
+    image: stackstorm/packagingtest:jammy-systemd
+    dockerfile: Dockerfile.ubuntu22.j2
+    privileged: true
+    command: /sbin/init
+    # /tmp left off tmpfs to avoid remote_tmp mkdir/echo issues in container
+    tmpfs: [/run]
+    volumes: [/sys/fs/cgroup:/sys/fs/cgroup:rw]
+    cgroupns_mode: host
+    username: molecule
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../roles
+  playbooks:
+    converge: ../../stackstorm.yml
+  inventory:
+    group_vars:
+      test:
+        ansible_user: molecule
+        st2_auth_username: testu
+        st2_auth_password: testp
+        st2chatops_hubot_adapter: slack
+        st2chatops_config:
+          HUBOT_SLACK_TOKEN: "{{ lookup('ansible.builtin.env', 'HUBOT_SLACK_TOKEN') }}"
+        st2_rbac_enable: true
+
+verifier:
+  name: ansible
+
+scenario:
+  create_sequence:
+    - create
+  check_sequence:
+    - destroy
+    - create
+    - converge
+    - check
+    - destroy
+  converge_sequence:
+    - create
+    - converge
+  destroy_sequence:
+    - destroy
+  test_sequence:
+    - destroy
+    - syntax
+    - create
+    - converge
+    - idempotence
+    - destroy

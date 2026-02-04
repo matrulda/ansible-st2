@@ -1,0 +1,10 @@
+[console_scripts]
+mol = molecule.__main__:mol_deprecation_notice
+molecule = molecule.__main__:main
+
+[molecule.driver]
+delegated = molecule.driver.delegated:Delegated
+
+[molecule.verifier]
+ansible = molecule.verifier.ansible:Ansible
+testinfra = molecule.verifier.testinfra:Testinfra

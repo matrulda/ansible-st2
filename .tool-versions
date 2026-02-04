@@ -1,0 +1,2 @@
+# Match E2E CI: ansible-core 2.18.x requires Python 3.11+
+python 3.11.12
