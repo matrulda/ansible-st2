@@ -1,7 +1,7 @@
 ---
-# StackStorm version to install. `present` to install available package, `latest` to get automatic updates or pin it to numeric version like `2.2.0`.
-# On Debian need to specify revision of package like `2.2.0-1`.
-st2_version: latest
+# StackStorm version to install. `present` to install available package, `latest` to get automatic updates or pin it to numeric version like `3.9.0`.
+# On Debian need to specify revision of package like `3.9.0-1`.
+st2_version: "3.9.0"
 
 # Hash with StackStorm configuration settings to set in 'st2.conf' ini file
 # See https://github.com/StackStorm/st2/blob/master/conf/st2.conf.sample for a full list

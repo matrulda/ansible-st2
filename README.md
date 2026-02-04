@@ -39,7 +39,7 @@ Below is the list of variables which you can redefine in your playbook, or inven
 | **st2repo**
 | `st2repo_name`           | `stable`      | StackStorm PackageCloud repository to install. [`stable`](https://packagecloud.io/StackStorm/stable/), [`unstable`](https://packagecloud.io/StackStorm/unstable/), [`staging-stable`](https://packagecloud.io/StackStorm/staging-stable/), [`staging-unstable`](https://packagecloud.io/StackStorm/staging-unstable/)
 | **st2**
-| `st2_version`            | `latest`      | StackStorm version to install. `present` to install available package, `latest` to get automatic updates, or pin it to numeric version like `2.2.0` or with revision like `2.2.0-1`
+| `st2_version`            | `3.9.0`       | StackStorm version to install. `present` to install available package, `latest` to get automatic updates, or pin it to numeric version like `3.9.0` or with revision like `3.9.0-1`
 | `st2_config`             | `{}`          | Hash with StackStorm configuration settings to set in [`st2.conf`](https://github.com/StackStorm/st2/blob/master/conf/st2.conf.sample) ini file.
 | `st2_system_user`        | `stanley`     | System user from which st2 will execute local/remote shell actions.
 | `st2_system_user_in_sudoers` | `yes`| Add `st2_system_user` to the sudoers (recommended for most `st2` features to work).
@@ -82,14 +82,14 @@ echo "stackstorm.example.com" > inventory
 ansible-playbook --inventory inventory stackstorm.yml
 ```
 
-> Keeping the `latest` version is useful to update StackStorm by re-running the playbook, since it will reinstall (upgrade) st2 when there is new version available.
+> The default installs StackStorm 3.9.0. To get automatic updates on re-run, set `st2_version=latest`. If you want a different pinned version, pass it via `--extra-vars`.
 
 This is default behavior. If you do not want updates, consider pinning specific version and revision numbers.
 
 Install a specific version of st2 with pinned revision number:
 
 ```sh
-ansible-playbook stackstorm.yml --extra-vars "st2_version=2.2.0 st2_revision=8"
+ansible-playbook stackstorm.yml --extra-vars='st2_version=3.9.0'
 ```
 
 ## Installing behind a proxy
