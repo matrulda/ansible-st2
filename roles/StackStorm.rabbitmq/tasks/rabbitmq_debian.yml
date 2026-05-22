@@ -37,28 +37,6 @@
   until: _task is succeeded
   tags: rabbitmq
 
-- name: apt | Add CloudSmith RabbitMQ key
-  become: yes
-  apt_key:
-    url: "https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key"
-    state: present
-  register: _task
-  retries: 5
-  delay: 3
-  until: _task is succeeded
-  tags: rabbitmq
-
-- name: apt | Add CloudSmith erlang key
-  become: yes
-  apt_key:
-    url: "https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key"
-    state: present
-  register: _task
-  retries: 5
-  delay: 3
-  until: _task is succeeded
-  tags: rabbitmq
-
 - name: Add erlang repos
   become: yes
   apt_repository:
